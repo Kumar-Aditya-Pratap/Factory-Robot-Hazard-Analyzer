@@ -1,14 +1,14 @@
 import java.util.*;
+
 /*
-* Version 2.0
+* Version 3.0
 * Author:Kumar Aditya Pratap
-* Accept robot hazard inputs
+* Hazard Risk Calculation
 */
 
 public class FactoryRobotHazardAnalyzer {
 
     public static void main(String[] args) {
-        System.out.println("Factory Robot Hazard Analyzer");
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Arm precision:");
         double armPrecision = sc.nextDouble();
@@ -22,6 +22,13 @@ public class FactoryRobotHazardAnalyzer {
         System.out.println("Arm Precision: " + armPrecision);
         System.out.println("Worker Density: " + workerDensity);
         System.out.println("Machinery State: " + machineryState);
+        double machineRiskFactor = 1.0;
+
+        double hazardRisk =
+                ((1.0 - armPrecision) * 15.0)
+                        + (workerDensity * machineRiskFactor);
+
+        System.out.println("Robot Hazard Risk Score: " + hazardRisk);
 
         sc.close();
     }
