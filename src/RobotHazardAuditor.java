@@ -4,17 +4,19 @@ public class RobotHazardAuditor {
 
     public double calculateHazardRisk(double armPrecision,
                                       int workerDensity,
-                                      String machineryState) {
+                                      String machineryState)
+            throws RobotSafetyException {
 
-        // Validation
         if (armPrecision < 0.0 || armPrecision > 1.0) {
-            System.out.println("Error: Arm precision must be 0.0-1.0");
-            return -1;
+            throw new RobotSafetyException(
+                    "Error: Arm precision must be 0.0-1.0"
+            );
         }
 
         if (workerDensity < 1 || workerDensity > 20) {
-            System.out.println("Error: Worker density must be 1-20");
-            return -1;
+            throw new RobotSafetyException(
+                    "Error: Worker density must be 1-20"
+            );
         }
 
         double machineRiskFactor;
@@ -26,11 +28,11 @@ public class RobotHazardAuditor {
         } else if (machineryState.equals("Critical")) {
             machineRiskFactor = 3.0;
         } else {
-            System.out.println("Error: Unsupported machinery state");
-            return -1;
+            throw new RobotSafetyException(
+                    "Error: Unsupported machinery state"
+            );
         }
 
-        // Hazard Risk Calculation
         return ((1.0 - armPrecision) * 15.0)
                 + (workerDensity * machineRiskFactor);
     }

@@ -1,9 +1,9 @@
 
 
 /*
-* Version 5.0
+* Version 6.0
 * Author:Kumar Aditya Pratap
-* Refactor Hazard Method
+* Custom Robot Safety Exception
 */
 
 import java.util.*;
@@ -31,14 +31,16 @@ public class FactoryRobotHazardAnalyzer {
 
         RobotHazardAuditor auditor = new RobotHazardAuditor();
 
-        double risk = auditor.calculateHazardRisk(
-                armPrecision,
-                workerDensity,
-                machineryState
-        );
-
-        if (risk != -1) {
+        try {
+            double risk = auditor.calculateHazardRisk(
+                    armPrecision,
+                    workerDensity,
+                    machineryState
+            );
             System.out.println("Robot Hazard Risk Score: " + risk);
+
+        } catch (RobotSafetyException e) {
+            System.out.println(e.getMessage());
         }
 
         scanner.close();
