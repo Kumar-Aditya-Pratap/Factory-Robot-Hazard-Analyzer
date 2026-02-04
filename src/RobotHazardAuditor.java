@@ -2,6 +2,10 @@
 
 public class RobotHazardAuditor {
 
+    private static final double WORN_RISK = 1.3;
+    private static final double FAULTY_RISK = 2.0;
+    private static final double CRITICAL_RISK = 3.0;
+
     public double calculateHazardRisk(double armPrecision,
                                       int workerDensity,
                                       String machineryState)
@@ -19,21 +23,26 @@ public class RobotHazardAuditor {
             );
         }
 
-        double machineRiskFactor;
-
-        if (machineryState.equals("Worn")) {
-            machineRiskFactor = 1.3;
-        } else if (machineryState.equals("Faulty")) {
-            machineRiskFactor = 2.0;
-        } else if (machineryState.equals("Critical")) {
-            machineRiskFactor = 3.0;
-        } else {
-            throw new RobotSafetyException(
-                    "Error: Unsupported machinery state"
-            );
-        }
+        double machineRiskFactor = getMachineRiskFactor(machineryState);
 
         return ((1.0 - armPrecision) * 15.0)
                 + (workerDensity * machineRiskFactor);
+    }
+
+    private double getMachineRiskFactor(String machineryState)
+            throws RobotSafetyException {
+
+        switch (machineryState) {
+            case "Worn":
+                return WORN_RISK;
+            case "Faulty":
+                return FAULTY_RISK;
+            case "Critical":
+                return CRITICAL_RISK;
+            default:
+                throw new RobotSafetyException(
+                        "Error: Unsupported machinery state"
+                );
+        }
     }
 }
