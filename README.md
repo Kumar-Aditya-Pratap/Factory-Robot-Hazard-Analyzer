@@ -1,7 +1,9 @@
 
 
-Factory Robot Hazard Analyzer
+#Factory Robot Hazard Analyzer
+
 Overview
+
 A console-based Java application that evaluates the hazard risk score of a factory robot based on arm precision, worker density, and machinery state.
 
 The application is developed incrementally using use-case–driven development and follows GitFlow strictly.
@@ -23,4 +25,5 @@ GitHub
 Branching Strategy
 main: Contains README only
 develop: Contains final implementation (UC8)
+
 
